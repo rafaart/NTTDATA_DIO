@@ -5,6 +5,7 @@ menu = """
 [d] Depositar
 [s] Sacar
 [e] Extrato
+[c] Crédito
 [q] Sair
 
 => """
@@ -14,6 +15,7 @@ limite = 500
 extrato = ""
 numero_saques = 0
 LIMITE_SAQUES = 3
+credito = 300
 ultimo_saque = None  # Variável para armazenar o horário do último saque
 
 while True:
@@ -68,6 +70,21 @@ while True:
         print("Não foram realizadas movimentações." if not extrato else extrato)
         print(f"\nSaldo: R$ {saldo:.2f}")
         print("==========================================")
+
+    elif opcao == "c":
+        print(f"Vc tem {credito} de crédito")
+        if credito > 0:
+            valor = float(
+                input(" Informe o valor que deseja tomar de crédito: "))
+            if valor > credito:
+                print("Operação falhou! O valor informado é inválido.")
+            else:
+
+                saldo = saldo + valor
+                credito = credito - valor
+                print("Seu crédito já foi liberado em sua conta.")
+        else:
+            print("Operação falhou! O valor informado é inválido.")
 
     elif opcao == "q":
         break
